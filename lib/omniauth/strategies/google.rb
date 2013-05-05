@@ -6,7 +6,7 @@ module OmniAuth
     #
     # Usage:
     #    use OmniAuth::Strategies::Google, 'consumerkey', 'consumersecret', {redirect_url => 'set to url when created'}
-    class GoogleApi < OmniAuth::Strategies::OAuth
+    class Google < OmniAuth::Strategies::OAuth
       def initialize(app, consumer_key=nil, consumer_secret=nil, options={}, &block)
         client_options = {
           :access_token_path => '/accounts/OAuthGetAccessToken',
@@ -27,9 +27,7 @@ module OmniAuth
         # however. It will fail in the extremely rare case of a user who has
         # a Google Account but has never even signed up for Gmail. This has
         # not been seen in the field.
-        #@user_hash ||= MultiJson.decode(@access_token.get('https://www.google.com/m8/feeds/contacts/default/full?max-results=1&alt=json').body)
-
-	puts "I am in"
+        @user_hash ||= MultiJson.decode(@access_token.get('https://www.google.com/m8/feeds/contacts/default/full?max-results=1&alt=json').body)
       end
 
 

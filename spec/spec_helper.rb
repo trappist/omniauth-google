@@ -4,7 +4,7 @@ require 'rspec'
 require 'webmock/rspec'
 require 'rack/test'
 require 'omniauth'
-require 'omniauth-google-api'
+require 'omniauth-google'
 
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 

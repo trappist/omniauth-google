@@ -6,13 +6,13 @@ RSpec.configure do |config|
   config.extend  OmniAuth::Test::StrategyMacros, :type => :strategy
 end
 
-describe "OmniAuth::Strategies::GoogleApi" do
+describe "OmniAuth::Strategies::Google" do
 
   def app
     Rack::Builder.new {
       use OmniAuth::Test::PhonySession
       use OmniAuth::Builder do
-        provider :googleApi
+        provider :google
       end
       run lambda { |env| [404, {'Content-Type' => 'text/plain'}, [env.key?('omniauth.auth').to_s]] }
     }.to_app
@@ -130,7 +130,7 @@ BODY
       before do
         stub_request(:post, 'https://www.google.com/accounts/OAuthGetAccessToken').
            to_raise(::OpenSSL::SSL::SSLError.new("SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificate verify failed"))
-        get '/auth/google/callback', {:oauth_verifier => 'dudeman'}, {'rack.session' => {'oauth' => {"google-api" => {'callback_confirmed' => true, 'request_token' => 'yourtoken', 'request_secret' => 'yoursecret'}}}}
+        get '/auth/google/callback', {:oauth_verifier => 'dudeman'}, {'rack.session' => {'oauth' => {"google" => {'callback_confirmed' => true, 'request_token' => 'yourtoken', 'request_secret' => 'yoursecret'}}}}
       end
 
       it 'should call fail! with :service_unavailable' do
